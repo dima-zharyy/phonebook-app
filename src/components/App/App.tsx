@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { AppMenu, Notification } from 'components';
+import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { AppMenu, Notification } from "components";
 import {
   Home,
   SignIn,
@@ -9,14 +9,14 @@ import {
   Contacts,
   AddContact,
   NotExist,
-} from 'helpers/lazyImportPages.jsx';
-import { useDispatch } from 'react-redux';
-import { PrivateRoute, PublicRoute } from 'routes';
-import { fetchCurrentUser } from 'redux/auth/authOperations';
-import 'react-toastify/dist/ReactToastify.css';
+} from "helpers/lazyImportPages";
+import { PrivateRoute, PublicRoute } from "routes";
+import { fetchCurrentUser } from "redux/auth/authOperations";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppDispatch } from "redux/reduxHooks";
 
-export const App = () => {
-  const dispatch = useDispatch();
+export const App: React.FC = () => {
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchCurrentUser());

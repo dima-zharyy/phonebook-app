@@ -1,24 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { RootState } from "redux/store";
 
-const initialState = { value: 'light' };
+type TValue = "light" | "dark";
+
+interface IThemeState {
+  value: TValue;
+}
+
+const initialState: IThemeState = { value: "light" };
 
 const themeSlice = createSlice({
-  name: 'theme',
+  name: "theme",
   initialState,
   reducers: {
-    changeTheme(state, action) {
+    changeTheme(state, action: PayloadAction<TValue>) {
       state.value = action.payload;
     },
   },
 });
 
 const persistConfig = {
-  key: 'theme',
+  key: "theme",
   storage,
 };
 
 export const themeReducer = persistReducer(persistConfig, themeSlice.reducer);
 export const { changeTheme } = themeSlice.actions;
-export const getTheme = state => state.theme.value;
+export const getTheme = (state: RootState) => state.theme.value;

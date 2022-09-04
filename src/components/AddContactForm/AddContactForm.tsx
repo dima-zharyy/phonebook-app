@@ -1,48 +1,53 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import { titleStyles, formStyles, fieldStyles, buttonStyles } from './styles';
-import { useAddContactMutation } from 'redux/contacts/contactsApi';
-import { useNavigate } from 'react-router-dom';
-import { useLocalStorage } from 'hooks/useLocalStorage';
-import { notify } from 'components';
+import { Box, Button, TextField, Typography } from "@mui/material";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import { titleStyles, formStyles, fieldStyles, buttonStyles } from "./styles";
+import { useAddContactMutation } from "redux/contacts/contactsApi";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "hooks/useLocalStorage";
+import { notify } from "components";
 
-const STORAGE_KEY_NAME = 'add-contact-name';
-const STORAGE_KEY_NUMBER = 'add-contact-number';
+const STORAGE_KEY_NAME = "add-contact-name";
+const STORAGE_KEY_NUMBER = "add-contact-number";
 
-export const AddContactForm = () => {
+export const AddContactForm: React.FC = () => {
   const [name, number, setName, setNumber] = useLocalStorage(
     STORAGE_KEY_NAME,
     STORAGE_KEY_NUMBER,
-    ''
+    ""
   );
   const [addContact] = useAddContactMutation();
   const navigate = useNavigate();
 
   const resetForm = () => {
-    setName('');
-    setNumber('');
+    setName("");
+    setNumber("");
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       resetForm();
       await addContact({ name, number });
-      notify(`${name} added to your Phonebook`, 'ok');
+      notify(`${name} added to your Phonebook`, "ok");
     } catch (error) {
-      notify(`Something went wrong! Try again`, 'fail');
+      notify(`Something went wrong! Try again`, "fail");
       console.log(error);
     } finally {
-      navigate('/phonebook/contacts', { replace: true });
+      navigate("/phonebook/contacts", { replace: true });
     }
   };
 
   return (
     <>
-      <Typography variant="h5" as="h2" sx={titleStyles}>
+      <Typography variant="h5" component="h2" sx={titleStyles}>
         Add new contact to your Phonebook
       </Typography>
-      <Box as="form" autoComplete="off" onSubmit={handleSubmit} sx={formStyles}>
+      <Box
+        component="form"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        sx={formStyles}
+      >
         <TextField
           fullWidth
           required
@@ -50,7 +55,7 @@ export const AddContactForm = () => {
           type="text"
           variant="outlined"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           sx={fieldStyles}
         />
         <TextField
@@ -60,7 +65,7 @@ export const AddContactForm = () => {
           variant="outlined"
           type="tel"
           value={number}
-          onChange={e => setNumber(e.target.value)}
+          onChange={(e) => setNumber(e.target.value)}
           sx={fieldStyles}
         />
         <Button

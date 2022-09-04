@@ -1,23 +1,23 @@
-import { NavLink } from 'react-router-dom';
-import { Box } from '@mui/material';
-import ImportContactsIcon from '@mui/icons-material/ImportContacts';
-import { navLinkStyles, logoStyles, logoBoxStyles } from './styles.js';
-import { useSelector } from 'react-redux';
-import { getSignStatus } from 'redux/auth/authSlice.js';
+import { NavLink } from "react-router-dom";
+import { Box } from "@mui/material";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import { navLinkStyles, logoStyles, logoBoxStyles } from "./styles";
+import { getSignStatus } from "redux/auth/authSlice";
+import { useAppSelector } from "redux/reduxHooks";
 
-export const MainNav = () => {
-  const isSignedIn = useSelector(getSignStatus);
+export const MainNav: React.FC = () => {
+  const isSignedIn = useAppSelector(getSignStatus);
 
   return (
     <>
-      <Box to="/" as={NavLink} sx={logoBoxStyles}>
+      <Box to="/" component={NavLink} sx={logoBoxStyles}>
         <ImportContactsIcon sx={logoStyles} />
       </Box>
-      <Box to="/" as={NavLink} sx={{ ...navLinkStyles, mr: 2 }}>
+      <Box to="/" component={NavLink} sx={{ ...navLinkStyles, mr: 2 }}>
         Home
       </Box>
       {isSignedIn && (
-        <Box to="/phonebook" as={NavLink} sx={navLinkStyles}>
+        <Box to="/phonebook" component={NavLink} sx={navLinkStyles}>
           Phonebook
         </Box>
       )}

@@ -4,31 +4,42 @@ import {
   CardContent,
   CardActions,
   Paper,
-} from '@mui/material';
+} from "@mui/material";
 
 import {
   itemStyles,
   contentBoxStyles,
   contentStyles,
   numberLinkStyles,
-} from './styles.js';
+} from "./styles";
 
-import { useDeleteContactMutation } from 'redux/contacts/contactsApi.js';
-import PropTypes from 'prop-types';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useDeleteContactMutation } from "redux/contacts/contactsApi";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export const ContactListItem = ({ name, number, id, onClick }) => {
+interface IProps {
+  name: string;
+  number: string;
+  id: string;
+  onClick: (id: string, name: string, number: string) => void;
+}
+
+export const ContactListItem: React.FC<IProps> = ({
+  name,
+  number,
+  id,
+  onClick,
+}) => {
   const [deleteContact] = useDeleteContactMutation();
 
   return (
-    <Paper as="li" elevation={2} sx={itemStyles}>
+    <Paper component="li" elevation={2} sx={itemStyles}>
       <CardContent sx={contentBoxStyles}>
         <Typography variant="body2" sx={contentStyles}>
           {name}
         </Typography>
         <Typography
-          as="a"
+          component="a"
           href={`tel:${number}`}
           sx={numberLinkStyles}
           color="primary"
@@ -55,11 +66,4 @@ export const ContactListItem = ({ name, number, id, onClick }) => {
       </CardActions>
     </Paper>
   );
-};
-
-ContactListItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
 };

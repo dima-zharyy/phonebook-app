@@ -1,6 +1,6 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
-export const Notification = () => {
+export const Notification: React.FC = () => {
   return (
     <ToastContainer
       position="top-right"
@@ -17,11 +17,11 @@ export const Notification = () => {
   );
 };
 
-export const notify = (message, type) => {
+export const notify = (message: string, type: string) => {
   switch (type) {
-    case 'ok':
+    case "ok":
       toast.success(message, {
-        position: 'top-right',
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -31,9 +31,9 @@ export const notify = (message, type) => {
       });
       break;
 
-    case 'fail':
+    case "fail":
       toast.error(message, {
-        position: 'top-right',
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -43,9 +43,9 @@ export const notify = (message, type) => {
       });
       break;
 
-    case 'default':
+    case "default":
       toast(message, {
-        position: 'top-right',
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,

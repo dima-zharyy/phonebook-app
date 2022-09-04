@@ -1,15 +1,15 @@
 // import { Container, Typography } from '@mui/material';
-import { useDocumentTitle } from 'hooks/useDocumentTitle';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDocumentTitle } from "hooks/useDocumentTitle";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const Home = () => {
-  useDocumentTitle('Home');
+export const Home: React.FC = () => {
+  useDocumentTitle("Home");
   const navigate = useNavigate();
 
   useEffect(() => {
     // toast 'Sorry, page is under construct'
-    navigate('sign-in', { replace: true });
+    navigate("sign-in", { replace: true });
   }, [navigate]);
 
   return (

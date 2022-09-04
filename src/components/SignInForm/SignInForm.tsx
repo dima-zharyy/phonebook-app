@@ -1,21 +1,16 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import { useState } from 'react';
-import {
-  titleStyles,
-  formStyles,
-  fieldStyles,
-  buttonStyles,
-} from './styles.js';
-import { useDispatch } from 'react-redux';
-import { signIn } from 'redux/auth/authOperations.js';
+import { Box, Button, TextField, Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import { useState } from "react";
+import { titleStyles, formStyles, fieldStyles, buttonStyles } from "./styles";
+import { signIn } from "redux/auth/authOperations";
+import { useAppDispatch } from "redux/hooks";
 
-export const SignInForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+export const SignInForm: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -24,16 +19,21 @@ export const SignInForm = () => {
       alert(error);
     }
 
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <>
-      <Typography variant="h5" as="h2" sx={titleStyles}>
+      <Typography variant="h5" component="h2" sx={titleStyles}>
         Sign in your Phonebook
       </Typography>
-      <Box as="form" autoComplete="off" onSubmit={handleSubmit} sx={formStyles}>
+      <Box
+        component="form"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        sx={formStyles}
+      >
         <TextField
           fullWidth
           required
@@ -41,7 +41,7 @@ export const SignInForm = () => {
           type="email"
           variant="outlined"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           sx={fieldStyles}
         />
         <TextField
@@ -51,7 +51,7 @@ export const SignInForm = () => {
           variant="outlined"
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           sx={fieldStyles}
         />
         <Button

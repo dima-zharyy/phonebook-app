@@ -1,20 +1,31 @@
-import { useState, useEffect } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import ClearIcon from '@mui/icons-material/Clear';
+import { useState, useEffect } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import ClearIcon from "@mui/icons-material/Clear";
 import {
   titleStyles,
   formStyles,
   fieldStyles,
   buttonsBoxStyles,
-} from './styles';
-import { useEditContactMutation } from 'redux/contacts/contactsApi';
-import { notify } from 'components';
-import PropTypes from 'prop-types';
+} from "./styles";
+import { useEditContactMutation } from "redux/contacts/contactsApi";
+import { notify } from "components";
 
-export const EditContactForm = ({ editId, editName, editNumber, onClose }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+interface IProps {
+  editId: string;
+  editName: string;
+  editNumber: string;
+  onClose: () => void;
+}
+
+export const EditContactForm: React.FC<IProps> = ({
+  editId,
+  editName,
+  editNumber,
+  onClose,
+}) => {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
   const [editContact] = useEditContactMutation();
 
   useEffect(() => {
@@ -22,25 +33,30 @@ export const EditContactForm = ({ editId, editName, editNumber, onClose }) => {
     setNumber(editNumber);
   }, [editName, editNumber]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       await editContact({ editId, data: { name, number } });
-      notify('Contact edited successfully', 'ok');
+      notify("Contact edited successfully", "ok");
       onClose();
     } catch (error) {
-      notify(`Something went wrong! Try again`, 'fail');
+      notify(`Something went wrong! Try again`, "fail");
       console.log(error);
     }
   };
 
   return (
     <>
-      <Typography variant="h5" as="h2" sx={titleStyles}>
+      <Typography variant="h5" component="h2" sx={titleStyles}>
         Edit your contact
       </Typography>
-      <Box as="form" autoComplete="off" onSubmit={handleSubmit} sx={formStyles}>
+      <Box
+        component="form"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        sx={formStyles}
+      >
         <TextField
           fullWidth
           required
@@ -48,7 +64,7 @@ export const EditContactForm = ({ editId, editName, editNumber, onClose }) => {
           type="text"
           variant="outlined"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           sx={fieldStyles}
         />
         <TextField
@@ -58,7 +74,7 @@ export const EditContactForm = ({ editId, editName, editNumber, onClose }) => {
           variant="outlined"
           type="text"
           value={number}
-          onChange={e => setNumber(e.target.value)}
+          onChange={(e) => setNumber(e.target.value)}
           sx={fieldStyles}
         />
 
@@ -85,11 +101,4 @@ export const EditContactForm = ({ editId, editName, editNumber, onClose }) => {
       </Box>
     </>
   );
-};
-
-EditContactForm.propTypes = {
-  editId: PropTypes.string.isRequired,
-  editName: PropTypes.string.isRequired,
-  editNumber: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };

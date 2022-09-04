@@ -1,13 +1,12 @@
-import { Box, TextField } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { changeFilter } from 'redux/filter/filterSlice';
-import { filterBoxStyles } from './styles';
-import { getFilter } from 'redux/filter/filterSlice';
-import { useSelector } from 'react-redux';
+import { Box, TextField } from "@mui/material";
+import { changeFilter } from "redux/filter/filterSlice";
+import { filterBoxStyles } from "./styles";
+import { getFilter } from "redux/filter/filterSlice";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
 
-export const Filter = () => {
-  const dispatch = useDispatch();
-  const filterValue = useSelector(getFilter);
+export const Filter: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const filterValue = useAppSelector(getFilter);
 
   return (
     <Box sx={filterBoxStyles}>
@@ -17,7 +16,7 @@ export const Filter = () => {
         label="Type to find a contact"
         type="search"
         value={filterValue}
-        onChange={e => dispatch(changeFilter(e.target.value))}
+        onChange={(e) => dispatch(changeFilter(e.target.value))}
       />
     </Box>
   );

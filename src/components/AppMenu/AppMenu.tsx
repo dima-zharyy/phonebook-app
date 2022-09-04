@@ -1,16 +1,16 @@
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
-import { UserMenu, AuthNav, MainNav, ThemeSwitcher } from 'components';
-import { getFetchingStatus, getSignStatus } from 'redux/auth/authSlice.js';
-import { useSelector } from 'react-redux';
-import { getTheme } from 'redux/theme/themeSlice.js';
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { UserMenu, AuthNav, MainNav, ThemeSwitcher } from "components";
+import { getFetchingStatus, getSignStatus } from "redux/auth/authSlice";
+import { useSelector } from "react-redux";
+import { getTheme } from "redux/theme/themeSlice";
 
-import { AppBar, Box, Container, GlobalStyles, Toolbar } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { teal } from '@mui/material/colors';
-import { navStyles, appBarStyles, outletBoxStyles } from './styles.js';
+import { AppBar, Box, Container, GlobalStyles, Toolbar } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { teal } from "@mui/material/colors";
+import { navStyles, appBarStyles, outletBoxStyles } from "./styles";
 
-export const AppMenu = () => {
+export const AppMenu: React.FC = () => {
   const isSignedIn = useSelector(getSignStatus);
   const isFetchingCurrentUser = useSelector(getFetchingStatus);
   const savedTheme = useSelector(getTheme);
@@ -34,7 +34,7 @@ export const AppMenu = () => {
           <AppBar position="fixed" sx={appBarStyles}>
             <Container maxWidth="lg">
               <Toolbar disableGutters>
-                <Box as="nav" sx={navStyles}>
+                <Box component="nav" sx={navStyles}>
                   <MainNav />
                   {!isSignedIn && <AuthNav />}
                 </Box>
@@ -53,7 +53,7 @@ export const AppMenu = () => {
             styles={{
               html: {
                 backgroundColor:
-                  theme.palette.mode === 'dark' ? '#121212' : null,
+                  theme.palette.mode === "dark" ? "#121212" : null,
               },
             }}
           />

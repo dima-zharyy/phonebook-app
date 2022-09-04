@@ -1,22 +1,17 @@
-import { useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import {
-  titleStyles,
-  formStyles,
-  fieldStyles,
-  buttonStyles,
-} from './styles.js';
-import { useDispatch } from 'react-redux';
-import { signUp } from 'redux/auth/authOperations.js';
+import React, { useState } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import { titleStyles, formStyles, fieldStyles, buttonStyles } from "./styles";
+import { signUp } from "redux/auth/authOperations";
+import { useAppDispatch } from "redux/hooks";
 
-export const SignUpForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+export const SignUpForm: React.FC = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -25,17 +20,22 @@ export const SignUpForm = () => {
       console.log(error);
     }
 
-    setName('');
-    setPassword('');
-    setEmail('');
+    setName("");
+    setPassword("");
+    setEmail("");
   };
 
   return (
     <>
-      <Typography variant="h5" as="h2" sx={titleStyles}>
+      <Typography variant="h5" component="h2" sx={titleStyles}>
         Get access to the Phonebook
       </Typography>
-      <Box as="form" autoComplete="off" onSubmit={handleSubmit} sx={formStyles}>
+      <Box
+        component="form"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        sx={formStyles}
+      >
         <TextField
           fullWidth
           required
@@ -43,7 +43,7 @@ export const SignUpForm = () => {
           type="text"
           variant="outlined"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           sx={fieldStyles}
         />
         <TextField
@@ -53,7 +53,7 @@ export const SignUpForm = () => {
           type="email"
           variant="outlined"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           sx={fieldStyles}
         />
         <TextField
@@ -63,7 +63,7 @@ export const SignUpForm = () => {
           variant="outlined"
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           sx={fieldStyles}
         />
         <Button

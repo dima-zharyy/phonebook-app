@@ -1,10 +1,10 @@
-import { Container } from '@mui/system';
-import { ContactList, Filter, Loader } from 'components';
-import { useDocumentTitle } from 'hooks/useDocumentTitle';
-import { useGetContactsQuery } from 'redux/contacts/contactsApi';
+import { Container } from "@mui/system";
+import { ContactList, Filter, Loader } from "components";
+import { useDocumentTitle } from "hooks/useDocumentTitle";
+import { useGetContactsQuery } from "redux/contacts/contactsApi";
 
-export const Contacts = () => {
-  useDocumentTitle('Contacts');
+export const Contacts: React.FC = () => {
+  useDocumentTitle("Contacts");
   const { isFetching, isLoading } = useGetContactsQuery();
 
   return (

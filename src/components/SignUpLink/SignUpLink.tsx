@@ -1,13 +1,13 @@
-import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { linkStyles, boxStyles } from './styles';
+import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { linkStyles, boxStyles } from "./styles";
 
-export const SignUpLink = () => {
+export const SignUpLink: React.FC = () => {
   return (
     <Box sx={boxStyles}>
       <Typography
         to="/sign-up"
-        as={Link}
+        component={Link}
         color="primary"
         align="center"
         sx={linkStyles}

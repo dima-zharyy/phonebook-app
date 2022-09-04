@@ -1,9 +1,9 @@
-import { useDocumentTitle } from 'hooks/useDocumentTitle';
-import { Link } from 'react-router-dom';
-import css from './NotExist.module.css';
+import { useDocumentTitle } from "hooks/useDocumentTitle";
+import { Link } from "react-router-dom";
+import css from "./NotExist.module.css";
 
-export const NotExist = () => {
-  useDocumentTitle('404');
+export const NotExist: React.FC = () => {
+  useDocumentTitle("404");
 
   return (
     <section className={css.page_404}>

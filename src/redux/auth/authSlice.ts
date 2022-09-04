@@ -1,9 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { signIn, signOut, signUp, fetchCurrentUser } from './authOperations';
+import { createSlice } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { RootState } from "redux/store";
+import { signIn, signOut, signUp, fetchCurrentUser } from "./authOperations";
 
-const initialState = {
+export interface IUser {
+  name: string | null;
+  email: string | null;
+}
+
+interface IUserState {
+  user: IUser;
+  token: string | null;
+  isSignedIn: boolean;
+  isFetchingCurrentUser: boolean;
+}
+
+const initialState: IUserState = {
   user: { name: null, email: null },
   token: null,
   isSignedIn: false,
@@ -11,48 +24,50 @@ const initialState = {
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
-  extraReducers: {
-    [signUp.fulfilled](state, action) {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(signUp.fulfilled, (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isSignedIn = true;
-    },
-    [signIn.fulfilled](state, action) {
+    });
+    builder.addCase(signIn.fulfilled, (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isSignedIn = true;
-    },
-    [signOut.fulfilled](state, action) {
+    });
+    builder.addCase(signOut.fulfilled, (state) => {
       state.user = { name: null, email: null };
       state.token = null;
       state.isSignedIn = false;
-    },
-    [fetchCurrentUser.pending](state) {
+    });
+    builder.addCase(fetchCurrentUser.pending, (state) => {
       state.isFetchingCurrentUser = true;
-    },
-    [fetchCurrentUser.fulfilled](state, action) {
-      state.user = action.payload;
+    });
+    builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
       state.isSignedIn = true;
       state.isFetchingCurrentUser = false;
-    },
-    [fetchCurrentUser.rejected](state) {
+    });
+    builder.addCase(fetchCurrentUser.rejected, (state) => {
       state.isFetchingCurrentUser = false;
-    },
+    });
   },
 });
 
 const persistConfig = {
-  key: 'auth',
+  key: "auth",
   storage,
-  whitelist: ['token'],
+  whitelist: ["token"],
 };
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const getSignStatus = state => state.auth.isSignedIn;
+export const getSignStatus = (state: RootState) => state.auth.isSignedIn;
 
-export const getUsername = state => state.auth.user.name;
+export const getUsername = (state: RootState) => state.auth.user.name;
 
-export const getFetchingStatus = state => state.auth.isFetchingCurrentUser;
+export const getFetchingStatus = (state: RootState) =>
+  state.auth.isFetchingCurrentUser;

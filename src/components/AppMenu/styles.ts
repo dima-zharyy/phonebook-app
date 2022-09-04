@@ -1,15 +1,17 @@
+import type { Theme } from "@mui/system";
+
 export const navStyles = {
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
+  width: "100%",
+  display: "flex",
+  justifyContent: "flex-start",
+  alignItems: "center",
 };
 
 export const appBarStyles = {
-  zIndex: theme => theme.zIndex.drawer + 1,
+  zIndex: (theme: Theme) => theme.palette.zIndex.drawer + 1,
 };
 
 export const outletBoxStyles = {
-  display: 'flex',
+  display: "flex",
   pt: 8,
 };

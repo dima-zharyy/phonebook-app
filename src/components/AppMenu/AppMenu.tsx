@@ -50,6 +50,7 @@ export const AppMenu: React.FC = () => {
           </Box>
 
           <GlobalStyles
+            //@ts-ignore
             styles={{
               html: {
                 backgroundColor:

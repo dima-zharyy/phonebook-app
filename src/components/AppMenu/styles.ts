@@ -1,4 +1,4 @@
-import type { Theme } from "@mui/system";
+// import type { Theme } from "@mui/system";
 
 export const navStyles = {
   width: "100%",
@@ -8,7 +8,8 @@ export const navStyles = {
 };
 
 export const appBarStyles = {
-  zIndex: (theme: Theme) => theme.palette.zIndex.drawer + 1,
+  zIndex: 5001,
+  // zIndex: (theme: Theme) => theme.palette.zIndex.drawer + 1,
 };
 
 export const outletBoxStyles = {

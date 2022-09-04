@@ -5,7 +5,7 @@ import { useAppSelector } from "redux/reduxHooks";
 
 interface IProps {
   children: React.ReactElement<any, any> | null;
-  redirectPath: string;
+  redirectPath?: string;
 }
 
 export const PublicRoute: React.FC<IProps> = ({

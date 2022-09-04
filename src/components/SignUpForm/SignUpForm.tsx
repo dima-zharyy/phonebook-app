@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { titleStyles, formStyles, fieldStyles, buttonStyles } from "./styles";
 import { signUp } from "redux/auth/authOperations";
-import { useAppDispatch } from "redux/hooks";
+import { useAppDispatch } from "redux/reduxHooks";
 
 export const SignUpForm: React.FC = () => {
   const [name, setName] = useState("");

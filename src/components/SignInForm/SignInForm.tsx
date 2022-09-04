@@ -3,7 +3,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import { titleStyles, formStyles, fieldStyles, buttonStyles } from "./styles";
 import { signIn } from "redux/auth/authOperations";
-import { useAppDispatch } from "redux/hooks";
+import { useAppDispatch } from "redux/reduxHooks";
 
 export const SignInForm: React.FC = () => {
   const [email, setEmail] = useState("");

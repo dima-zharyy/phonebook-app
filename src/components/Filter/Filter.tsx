@@ -2,7 +2,7 @@ import { Box, TextField } from "@mui/material";
 import { changeFilter } from "redux/filter/filterSlice";
 import { filterBoxStyles } from "./styles";
 import { getFilter } from "redux/filter/filterSlice";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { useAppDispatch, useAppSelector } from "redux/reduxHooks";
 
 export const Filter: React.FC = () => {
   const dispatch = useAppDispatch();

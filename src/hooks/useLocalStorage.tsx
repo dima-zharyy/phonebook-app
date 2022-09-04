@@ -1,17 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-export const useLocalStorage = (keyName, keyNumber, defaultValue) => {
-  const [name, setName] = useState(() => {
+export const useLocalStorage = (
+  keyName: string,
+  keyNumber: string,
+  defaultValue = ""
+): [
+  string,
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+  React.Dispatch<React.SetStateAction<string>>
+] => {
+  const [name, setName] = useState<string>(() => {
     try {
-      return JSON.parse(window.localStorage.getItem(keyName)) ?? defaultValue;
+      const savedName = window.localStorage.getItem(keyName);
+
+      return typeof savedName === "string"
+        ? JSON.parse(savedName)
+        : defaultValue;
     } catch (error) {
       console.log(error);
     }
   });
 
-  const [number, setNumber] = useState(() => {
+  const [number, setNumber] = useState<string>(() => {
     try {
-      return JSON.parse(window.localStorage.getItem(keyNumber)) ?? defaultValue;
+      const savedNumber = window.localStorage.getItem(keyNumber);
+      return typeof savedNumber === "string"
+        ? JSON.parse(savedNumber)
+        : defaultValue;
     } catch (error) {
       console.log(error);
     }

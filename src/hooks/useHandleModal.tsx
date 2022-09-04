@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-export const useHandleModal = () => {
+type TUseHandleModal = {
+  showModal: boolean;
+  editName: string;
+  editId: string;
+  editNumber: string;
+  handleOpenModal: (id: string, name: string, number: string) => void;
+  handleCloseModal: () => void;
+};
+
+export const useHandleModal = (): TUseHandleModal => {
   const [showModal, setShowModal] = useState(false);
-  const [editName, setEditName] = useState('');
-  const [editNumber, setEditNumber] = useState('');
-  const [editId, setEditId] = useState('');
+  const [editName, setEditName] = useState("");
+  const [editNumber, setEditNumber] = useState("");
+  const [editId, setEditId] = useState("");
 
-  const handleOpenModal = (id, name, number) => {
+  const handleOpenModal = (id: string, name: string, number: string) => {
     setEditName(name);
     setEditNumber(number);
     setEditId(id);

@@ -47,7 +47,7 @@ export const authSlice = createSlice({
       state.isFetchingCurrentUser = true;
     });
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
-      state.user = action.payload.user;
+      state.user = action.payload;
       state.isSignedIn = true;
       state.isFetchingCurrentUser = false;
     });

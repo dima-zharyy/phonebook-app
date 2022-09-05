@@ -9,6 +9,8 @@ interface IReturnedData {
   user: IUser;
 }
 
+interface IReturnedCurrentUser extends IUser {}
+
 interface ISignPayload {
   name?: string;
   email: string;
@@ -72,7 +74,7 @@ export const signOut = createAsyncThunk<void, void, { rejectValue: void }>(
 );
 
 export const fetchCurrentUser = createAsyncThunk<
-  IReturnedData,
+  IReturnedCurrentUser,
   void,
   { rejectValue: void }
 >("auth/current", async (_, thunkAPI) => {
@@ -86,7 +88,7 @@ export const fetchCurrentUser = createAsyncThunk<
   token.set(persistedToken);
   try {
     const response = await axios.get("/users/current");
-    const data: IReturnedData = response.data;
+    const data: IReturnedCurrentUser = response.data;
     return data;
   } catch (error) {
     console.log(error);
